@@ -1,5 +1,7 @@
 # Lakebase Natural Language Analytics
 
+![Lakebase Analytics UI](docs/images/app-screenshot.png)
+
 A web application that lets you query a [Databricks Lakebase](https://docs.databricks.com/en/lakebase/index.html) PostgreSQL database using plain English. Questions are translated into SQL, executed against Lakebase, and rendered as interactive tables and charts. Queries that cannot be fulfilled—write operations, missing data, ambiguous intent—are rejected with a clear rationale.
 
 ## How It Works
