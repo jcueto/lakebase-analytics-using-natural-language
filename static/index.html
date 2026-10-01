@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lakebase Natural Language Analytics</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+          <h1>Lakebase Analytics</h1>
+        </div>
+        <div class="badge-status">
+          <span class="status-dot"></span>
+          <span>Project: <strong id="project-label">sales-analytics</strong></span>
+        </div>
+      </div>
+
+      <div class="schema-section">
+        <div class="schema-header">
+          <h2>Schemas & Tables</h2>
+          <button class="btn-icon" id="refresh-schema" title="Refresh Lakebase schema">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 4 23 10 17 10"/>
+              <polyline points="1 20 1 14 7 14"/>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+            </svg>
+          </button>
+        </div>
+        <div id="schema-tree" class="schema-tree">
+          <p class="muted">Loading schema from Lakebase…</p>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="history-section">
+          <h3>Recent Questions</h3>
+          <ul id="history-list" class="history-list"></ul>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="main">
+      <!-- Query Bar -->
+      <div class="query-bar">
+        <div class="input-wrapper">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <textarea
+            id="question-input"
+            placeholder="Ask a question about your sales-analytics data in plain English..."
+            rows="1"
+          ></textarea>
+          <button class="btn-primary" id="run-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+            Ask Lakebase
+          </button>
+        </div>
+
+        <div class="quick-actions">
+          <button class="chip" data-question="What are the top 10 customers by total net sales and profit?">🏆 Top 10 Customers</button>
+          <button class="chip" data-question="Show monthly net sales and profit trends over time">📈 Monthly Sales Trends</button>
+          <button class="chip" data-question="Which sales channels have the highest order volume and customer rating?">🛍️ Channel Performance</button>
+          <button class="chip" data-question="What is the average delivery delay by warehouse and shipping method?">🚚 Delivery Delays</button>
+          <button class="chip chip-test-error" data-question="Delete all customer records where orders are returned" title="Test how the UI rejects unexecutable/write queries">⚠️ Test Blocked Action (Delete)</button>
+          <button class="chip chip-test-error" data-question="What is the average employee salary and HR department budget?" title="Test missing schema columns">⚠️ Test Missing Columns</button>
+        </div>
+      </div>
+
+      <!-- Results stream -->
+      <div id="results-area" class="results-area">
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon-wrap">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <h2>Explore Your Databricks Lakebase with Natural Language</h2>
+          <p>
+            Type questions to query the <code>sales-analytics</code> PostgreSQL database in real-time.
+            Your query is translated into PostgreSQL SQL, validated against schema rules, executed, and rendered as interactive tables and charts.
+          </p>
+          <p class="empty-subtext">
+            If a question asks for non-existent tables or forbidden actions (like DROP or UPDATE), the system will explain exactly why it cannot be executed and propose alternatives.
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
